@@ -22,7 +22,16 @@ SET global general_log_file='/tmp/mysql_general.log';
 SET global general_log = 1;
 ```
 
+Tail log:
+```
+sudo tail -f /tmp/mysql_general.log
+```
+
+Enable remote connection as root identified by password 123456 (or edit file jdbc.properties)
+
 Run webapp
 ```
 java -jar jetty-runner-8.1.9.v20130131.jar /target/Spring3HibernateIntegration.war
 ```
+
+Visit localhost:8080
