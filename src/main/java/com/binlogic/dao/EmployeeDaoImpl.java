@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +15,11 @@ import com.binlogic.entity.EmployeeEntity;
 public class EmployeeDaoImpl implements EmployeeDAO  {
 
 	@Autowired
+	@Qualifier("sessionFactoryWrite")
     private SessionFactory sessionFactory;
 
 	@Autowired
+	@Qualifier("sessionFactoryRead")
 	private SessionFactory sessionFactoryRead;
 
 	@Override
