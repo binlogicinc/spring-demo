@@ -3,7 +3,9 @@ package com.binlogic.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.stereotype.Repository;
 
 import com.binlogic.entity.EmployeeEntity;
@@ -13,7 +15,10 @@ public class EmployeeDaoImpl implements EmployeeDAO  {
 
 	@Autowired
     private SessionFactory sessionFactory;
-	
+
+	@Autowired
+	private SessionFactory sessionFactoryRead;
+
 	@Override
 	public void addEmployee(EmployeeEntity employee) {
 		this.sessionFactory.getCurrentSession().save(employee);
@@ -22,8 +27,26 @@ public class EmployeeDaoImpl implements EmployeeDAO  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EmployeeEntity> getAllEmployees() {
-//		return this.sessionFactory.openSession().createQuery("from EmployeeEntity").list();
 		return this.sessionFactory.getCurrentSession().createQuery("from EmployeeEntity").list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmployeeEntity> getAllEmployeesFromReadSession() {
+		return this.sessionFactoryRead.getCurrentSession().createQuery("from EmployeeEntity").list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmployeeEntity> getAllEmployeesNoTransact() {
+		Session session = this.sessionFactory.openSession();
+
+		try {
+			return session.createQuery("from EmployeeEntity").list();
+		}
+		finally {
+			SessionFactoryUtils.closeSession(session);
+		}
 	}
 
 	@Override

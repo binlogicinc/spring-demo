@@ -10,8 +10,8 @@ public class TestDB {
 	{
 		try
 		{
-		String url = "jdbc:mariadb://127.0.0.1:3307/spring";
-		String user = "fermin";
+		String url = "jdbc:mariadb://10.10.8.100:3306/spring";
+		String user = "root";
 		String password = "123456";
 
 		// Load the Connector/J driver

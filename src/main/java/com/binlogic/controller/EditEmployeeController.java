@@ -27,6 +27,33 @@ public class EditEmployeeController {
 		return "editEmployeeList";
 	}
 
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public String listEmployeesRead(ModelMap map)
+	{
+		map.addAttribute("employee", new EmployeeEntity());
+		map.addAttribute("employeeList", employeeManager.getAllEmployeesFromRead());
+
+		return "editEmployeeList";
+	}
+
+	@RequestMapping(value = "/no-transact", method = RequestMethod.GET)
+	public String listEmployeesNoTransact(ModelMap map)
+	{
+		map.addAttribute("employee", new EmployeeEntity());
+		map.addAttribute("employeeList", employeeManager.getAllEmployeesNoTransact());
+
+		return "editEmployeeList";
+	}
+
+	@RequestMapping(value = "/no-propagation", method = RequestMethod.GET)
+	public String listEmployeesNoPropagation(ModelMap map)
+	{
+		map.addAttribute("employee", new EmployeeEntity());
+		map.addAttribute("employeeList", employeeManager.getAllEmployeesNoPropagation());
+
+		return "editEmployeeList";
+	}
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addEmployee(@ModelAttribute(value="employee") EmployeeEntity employee, BindingResult result) 
 	{

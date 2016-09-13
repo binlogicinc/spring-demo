@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.binlogic.dao.EmployeeDAO;
@@ -24,6 +25,24 @@ public class EmployeeManagerImpl implements EmployeeManager {
 	@Override
 	@Transactional
 	public List<EmployeeEntity> getAllEmployees() {
+		return employeeDAO.getAllEmployees();
+	}
+
+	@Override
+	@Transactional
+	public List<EmployeeEntity> getAllEmployeesFromRead() {
+		return employeeDAO.getAllEmployeesFromReadSession();
+	}
+
+	//no annotation here
+	@Override
+	public List<EmployeeEntity> getAllEmployeesNoTransact() {
+		return employeeDAO.getAllEmployeesNoTransact();
+	}
+
+	@Transactional(readOnly = true, propagation = Propagation.NEVER)
+	@Override
+	public List<EmployeeEntity> getAllEmployeesNoPropagation() {
 		return employeeDAO.getAllEmployees();
 	}
 
